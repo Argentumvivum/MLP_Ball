@@ -58,7 +58,7 @@ public class Propagation
 
     private void BackPropagation(Dictionary<int, List<Node>> nodes, List<InputData> inputData, float learningRate)
     {
-        //Calculate error for Second to last layer
+        //Calculate error for Second to last Layer
         for (int i = nodes.Count - 2; i < nodes.Count - 1; i++)
         {
             for (int j = 1; j < nodes[i].Count; j++)
@@ -82,7 +82,7 @@ public class Propagation
             }
         }
 
-        //Change weights for input and n hidden layers
+        //Change weights for input and n Hidden Layers
         for (int i = 0; i < nodes.Count - 2; i++)
         {
             for (int j = 0; j < nodes[i].Count; j++)
@@ -91,17 +91,22 @@ public class Propagation
                 {
                     if (j == 0)
                     {
-                        nodes[i][j].weights[k] = nodes[i][j].weights[k] + learningRate * nodes[i + 1][k + 1].error * nodes[i + 1][k + 1].dvalue;
+                        nodes[i][j].weights[k] += learningRate * 
+                                                  nodes[i + 1][k + 1].error * 
+                                                  nodes[i + 1][k + 1].dvalue;
                     }
                     else
                     {
-                        nodes[i][j].weights[k] = nodes[i][j].weights[k] + learningRate * nodes[i + 1][k + 1].error * nodes[i + 1][k + 1].dvalue * nodes[i][j].value;
+                        nodes[i][j].weights[k] += learningRate * 
+                                                  nodes[i + 1][k + 1].error * 
+                                                  nodes[i + 1][k + 1].dvalue * 
+                                                  nodes[i][j].value;
                     }
                 }
             }
         }
 
-        //Change weights for second to last layer
+        //Change weights for second to last Layer
         for (int i = nodes.Count - 2; i < nodes.Count - 1; i++)
         {
             for (int j = 0; j < nodes[i].Count; j++)
@@ -110,11 +115,16 @@ public class Propagation
                 {
                     if (j == 0)
                     {
-                        nodes[i][j].weights[k] = nodes[i][j].weights[k] + learningRate * nodes[i + 1][k].error * nodes[i + 1][k].dvalue;
+                        nodes[i][j].weights[k] += learningRate * 
+                                                  nodes[i + 1][k].error * 
+                                                  nodes[i + 1][k].dvalue;
                     }
                     else
                     {
-                        nodes[i][j].weights[k] = nodes[i][j].weights[k] + learningRate * nodes[i + 1][k].error * nodes[i + 1][k].dvalue * nodes[i][j].value;
+                        nodes[i][j].weights[k] += learningRate * 
+                                                  nodes[i + 1][k].error * 
+                                                  nodes[i + 1][k].dvalue * 
+                                                  nodes[i][j].value;
                     }
                 }
             }
