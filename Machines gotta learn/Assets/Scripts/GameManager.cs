@@ -73,7 +73,11 @@ public class GameManager : MonoBehaviour
 
     public void AddData()
     {
-        var data = new float[] { ball.position.x, ball.position.z, goal.position.x, goal.position.z };
+        var data = new float[] { ball.position.x,
+                                 ball.position.z,
+                                 goal.position.x,
+                                 goal.position.z };
+
         var label = new float[] { 0, 0 };
 
         var diff = (goal.position - ball.position).normalized;
@@ -162,7 +166,13 @@ public class GameManager : MonoBehaviour
 
             for (int i = 0; i < inputDatas.Count; i++)
             {
-                tempScrollText += $" Data {i + 1} (Ball X: {inputDatas[i].data[0]} Ball Z: {inputDatas[i].data[1]} Goal X: {inputDatas[i].data[2]} Goal Z: {inputDatas[i].data[3]}) | Rot X: {inputDatas[i].label[0].ToString("0.##")} Rot Z: {inputDatas[i].label[1].ToString("0.##")}\n";
+                tempScrollText += $" Data {i + 1} " +
+                                  $"(Ball X: {inputDatas[i].data[0]} " +
+                                  $"Ball Z: {inputDatas[i].data[1]} " +
+                                  $"Goal X: {inputDatas[i].data[2]} " +
+                                  $"Goal Z: {inputDatas[i].data[3]}) | " +
+                                  $"Rot X: {inputDatas[i].label[0].ToString("0.##")} " +
+                                  $"Rot Z: {inputDatas[i].label[1].ToString("0.##")}\n";
             }
 
             scrollContent.GetComponent<Text>().text = tempScrollText;
@@ -182,7 +192,11 @@ public class GameManager : MonoBehaviour
         {
             currentData = new List<InputData>();
 
-            var data = new float[] { ball.position.x, ball.position.z, goal.position.x, goal.position.z };
+            var data = new float[] { ball.position.x,
+                                     ball.position.z,
+                                     goal.position.x,
+                                     goal.position.z };
+
             var label = new float[] { 0, 0 };
 
             var eulerRotation = plane.rotation.eulerAngles;
@@ -195,7 +209,10 @@ public class GameManager : MonoBehaviour
 
             neuralNetwork.MLPSoftSign(nodes, currentData, isTraining, learningRate);
 
-            var target = Quaternion.Euler(nodes[nodes.Count -1][0].value * planeTiltMultiplier, 1, nodes[nodes.Count - 1][1].value * planeTiltMultiplier);
+            var target = Quaternion.Euler( x: nodes[nodes.Count -1][0].value * planeTiltMultiplier,
+                                           y: 1, 
+                                           z: nodes[nodes.Count - 1][1].value * planeTiltMultiplier );
+
             plane.rotation = Quaternion.Slerp(plane.rotation, target, Time.deltaTime * 30.0f);
         }
     }
