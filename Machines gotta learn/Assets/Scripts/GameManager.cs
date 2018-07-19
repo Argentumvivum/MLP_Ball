@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public Button addData;
     public Button resetData;
 
+
     public int[] networkSizes;
 
     public List<InputData> inputDatas;
@@ -117,11 +118,13 @@ public class GameManager : MonoBehaviour
     {
         isTraining = true;
         trainNetwork.interactable = false;
+        gatherDataButton.interactable = false;
 
         await Task.Run(() => neuralNetwork.TrainMLPSoftSign(nodes, inputDatas, isTraining, learningRate));
 
         isTraining = false;
         trainNetwork.interactable = true;
+        gatherDataButton.interactable = true;
     }
 
     public void RandomizeButton()
