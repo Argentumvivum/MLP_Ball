@@ -10,7 +10,7 @@ public class NeuralNetwork
         propagation.FeedForward(nodes, inputData, isTraining, learningRate);
     }
 
-    public void TrainMLPSpftSign(Dictionary<int, List<Node>> nodes, List<InputData> inputData, bool isTraining, float learningRate)
+    public void TrainMLPSoftSign(Dictionary<int, List<Node>> nodes, List<InputData> inputData, bool isTraining, float learningRate)
     {
         for (int i = 0; i < 20000; i++)
         {

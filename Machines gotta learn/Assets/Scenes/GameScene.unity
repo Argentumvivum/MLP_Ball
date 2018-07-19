@@ -232,6 +232,7 @@ MonoBehaviour:
   scrollContent: {fileID: 2024609543}
   trainNetwork: {fileID: 1897889870}
   addData: {fileID: 1221261177}
+  resetData: {fileID: 1569578996}
   networkSizes: 050000000900000002000000
   inputDatas: []
   currentData: []
@@ -1047,7 +1048,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 48102487}
-        m_MethodName: Randomize
+        m_MethodName: RandomizeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1837,7 +1838,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 48102487}
-        m_MethodName: AddData
+        m_MethodName: AddDataButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2338,7 +2339,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 48102487}
-        m_MethodName: ResetData
+        m_MethodName: ResetDataButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2912,7 +2913,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 48102487}
-        m_MethodName: TrainNetwork
+        m_MethodName: TrainButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

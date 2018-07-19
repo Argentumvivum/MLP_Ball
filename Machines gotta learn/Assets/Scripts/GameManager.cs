@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject scrollContent;
     public Button trainNetwork;
     public Button addData;
+    public Button resetData;
 
     public int[] networkSizes;
 
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
         neuralNetwork.SetupNetwork(networkSizes, nodes);
     }
 
-    public void ResetData()
+    public void ResetDataButton()
     {
         inputDatas = new List<InputData>();
         inputDatas = savingSystem.LoadData(inputDatas, true);
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         savingSystem.SaveData(inputDatas);
     }
 
-    public void AddData()
+    public void AddDataButton()
     {
         var data = new float[] { ball.position.x,
                                  ball.position.z,
@@ -106,14 +108,23 @@ public class GameManager : MonoBehaviour
         savingSystem.SaveData(inputDatas);
     }
 
-    public void TrainNetwork()
+    public async void TrainButton()
     {
-        isTraining = true;
-        neuralNetwork.TrainMLPSpftSign(nodes, inputDatas, isTraining, learningRate);
-        isTraining = false;
+        await TrainNetworkAsync();
     }
 
-    public void Randomize()
+    private async Task TrainNetworkAsync()
+    {
+        isTraining = true;
+        trainNetwork.interactable = false;
+
+        await Task.Run(() => neuralNetwork.TrainMLPSoftSign(nodes, inputDatas, isTraining, learningRate));
+
+        isTraining = false;
+        trainNetwork.interactable = true;
+    }
+
+    public void RandomizeButton()
     {
         ball.position = new Vector3(Random.Range(-24f, 24f), 1, Random.Range(-24f, 24f));
     }
@@ -131,6 +142,7 @@ public class GameManager : MonoBehaviour
             gatherDataButton.colors = cb;
 
             trainNetwork.interactable = false;
+            resetData.interactable = true;
             addData.interactable = true;
 
             ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
@@ -146,6 +158,7 @@ public class GameManager : MonoBehaviour
             plane.rotation = Quaternion.Euler(0, 0, 0);
 
             trainNetwork.interactable = true;
+            resetData.interactable = false;
             addData.interactable = false;
 
             ball.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -167,12 +180,13 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < inputDatas.Count; i++)
             {
                 tempScrollText += $" Data {i + 1} " +
-                                  $"(Ball X: {inputDatas[i].data[0]} " +
-                                  $"Ball Z: {inputDatas[i].data[1]} " +
-                                  $"Goal X: {inputDatas[i].data[2]} " +
-                                  $"Goal Z: {inputDatas[i].data[3]}) | " +
-                                  $"Rot X: {inputDatas[i].label[0].ToString("0.##")} " +
-                                  $"Rot Z: {inputDatas[i].label[1].ToString("0.##")}\n";
+                                  $"Ball X: { inputDatas[i].data[0] } " +
+                                  $"Ball Z: { inputDatas[i].data[1] } " +
+                                  $"Goal X: { inputDatas[i].data[2] } " +
+                                  $"Goal Z: { inputDatas[i].data[3] } || " +
+                                  $"Rot X: { inputDatas[i].label[0].ToString("0.##") } " +
+                                  $"Rot Z: { inputDatas[i].label[1].ToString("0.##") }" +
+                                  $"{ System.Environment.NewLine }";
             }
 
             scrollContent.GetComponent<Text>().text = tempScrollText;
