@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
 
     public void RandomizeButton()
     {
-        ball.position = new Vector3(Random.Range(-24f, 24f), 1, Random.Range(-24f, 24f));
+        ball.position = new Vector3(Random.Range(-24f, 24f), 2, Random.Range(-24f, 24f));
     }
 
     public void GatheringDataToggle()
@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
             neuralNetwork.MLPSoftSign(nodes, currentData, isTraining, learningRate);
 
             var target = Quaternion.Euler( x: nodes[nodes.Count -1][0].value * planeTiltMultiplier,
-                                           y: 1, 
+                                           y: 0, 
                                            z: nodes[nodes.Count - 1][1].value * planeTiltMultiplier );
 
             plane.rotation = Quaternion.Slerp(plane.rotation, target, Time.deltaTime * 30.0f);
