@@ -75,9 +75,9 @@ public class NeuralNetwork
         {
             for(int j = 0; j < nodes[i].Count; j++)
             {
-                for(int k = 0; k < nodes[i][j].weights.Length; k++)
+                for(int k = 0; k < nodes[i][j].Weights.Length; k++)
                 {
-                    nodes[i][j].weights[k] = SetRandomValue();
+                    nodes[i][j].Weights[k] = SetRandomValue();
                 }
             }
         }

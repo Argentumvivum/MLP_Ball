@@ -3,12 +3,12 @@
 [System.Serializable]
 public class InputData
 {
-    public float[] data;//ball position x,z (input), target postition x,z (input)
-    public float[] label;//desired plane rotation x,z (label)
+    public float[] Data { get; set; }//ball position x,z (input), target postition x,z (input)
+    public float[] Label { get; set; }//desired plane rotation x,z (label)
 }
 
 [System.Serializable]
 public class InputDataList
 {
-    public List<InputData> data;
+    public List<InputData> Data { get; set; }
 }

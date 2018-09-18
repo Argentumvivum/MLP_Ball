@@ -13,7 +13,7 @@ public class Propagation
             //Input Layer
             for (int i = 1; i < nodes[0].Count; i++)
             {
-                nodes[0][i].value = input.data[i - 1];
+                nodes[0][i].Value = input.Data[i - 1];
             }
 
             //Hidden Layers
@@ -25,11 +25,11 @@ public class Propagation
 
                     for (int k = 0; k < nodes[i - 1].Count; k++)
                     {
-                        tempSum += nodes[i - 1][k].value * nodes[i - 1][k].weights[j - 1];
+                        tempSum += nodes[i - 1][k].Value * nodes[i - 1][k].Weights[j - 1];
                     }
 
-                    nodes[i][j].value = activation.SoftSign(tempSum);
-                    nodes[i][j].dvalue = activation.SoftSignDerivative(tempSum);
+                    nodes[i][j].Value = activation.SoftSign(tempSum);
+                    nodes[i][j].Dvalue = activation.SoftSignDerivative(tempSum);
                 }
             }
 
@@ -42,12 +42,12 @@ public class Propagation
 
                     for (int k = 0; k < nodes[i - 1].Count; k++)
                     {
-                        tempSum += nodes[i - 1][k].value * nodes[i - 1][k].weights[j];
+                        tempSum += nodes[i - 1][k].Value * nodes[i - 1][k].Weights[j];
                     }
 
-                    nodes[i][j].value = activation.SoftSign(tempSum);
-                    nodes[i][j].dvalue = activation.SoftSignDerivative(tempSum);
-                    nodes[i][j].error = input.label[j] - nodes[i][j].value;
+                    nodes[i][j].Value = activation.SoftSign(tempSum);
+                    nodes[i][j].Dvalue = activation.SoftSignDerivative(tempSum);
+                    nodes[i][j].Error = input.Label[j] - nodes[i][j].Value;
                 }
             }
 
@@ -63,9 +63,9 @@ public class Propagation
         {
             for (int j = 1; j < nodes[i].Count; j++)
             {
-                for (int k = 0; k < nodes[i][j].weights.Length; k++)
+                for (int k = 0; k < nodes[i][j].Weights.Length; k++)
                 {
-                    nodes[i][j].error += nodes[i][j].weights[k] * nodes[i + 1][k].error;
+                    nodes[i][j].Error += nodes[i][j].Weights[k] * nodes[i + 1][k].Error;
                 }
             }
         }
@@ -75,9 +75,9 @@ public class Propagation
         {
             for (int j = 1; j < nodes[i].Count; j++)
             {
-                for (int k = 1; k < nodes[i][j].weights.Length; k++)
+                for (int k = 1; k < nodes[i][j].Weights.Length; k++)
                 {
-                    nodes[i][j].error += nodes[i][j].weights[k] * nodes[i + 1][k].error;
+                    nodes[i][j].Error += nodes[i][j].Weights[k] * nodes[i + 1][k].Error;
                 }
             }
         }
@@ -87,20 +87,20 @@ public class Propagation
         {
             for (int j = 0; j < nodes[i].Count; j++)
             {
-                for (int k = 0; k < nodes[i][j].weights.Length; k++)
+                for (int k = 0; k < nodes[i][j].Weights.Length; k++)
                 {
                     if (j == 0)
                     {
-                        nodes[i][j].weights[k] += learningRate * 
-                                                  nodes[i + 1][k + 1].error * 
-                                                  nodes[i + 1][k + 1].dvalue;
+                        nodes[i][j].Weights[k] += learningRate * 
+                                                  nodes[i + 1][k + 1].Error * 
+                                                  nodes[i + 1][k + 1].Dvalue;
                     }
                     else
                     {
-                        nodes[i][j].weights[k] += learningRate * 
-                                                  nodes[i + 1][k + 1].error * 
-                                                  nodes[i + 1][k + 1].dvalue * 
-                                                  nodes[i][j].value;
+                        nodes[i][j].Weights[k] += learningRate * 
+                                                  nodes[i + 1][k + 1].Error * 
+                                                  nodes[i + 1][k + 1].Dvalue * 
+                                                  nodes[i][j].Value;
                     }
                 }
             }
@@ -111,20 +111,20 @@ public class Propagation
         {
             for (int j = 0; j < nodes[i].Count; j++)
             {
-                for (int k = 0; k < nodes[i][j].weights.Length; k++)
+                for (int k = 0; k < nodes[i][j].Weights.Length; k++)
                 {
                     if (j == 0)
                     {
-                        nodes[i][j].weights[k] += learningRate * 
-                                                  nodes[i + 1][k].error * 
-                                                  nodes[i + 1][k].dvalue;
+                        nodes[i][j].Weights[k] += learningRate * 
+                                                  nodes[i + 1][k].Error * 
+                                                  nodes[i + 1][k].Dvalue;
                     }
                     else
                     {
-                        nodes[i][j].weights[k] += learningRate * 
-                                                  nodes[i + 1][k].error * 
-                                                  nodes[i + 1][k].dvalue * 
-                                                  nodes[i][j].value;
+                        nodes[i][j].Weights[k] += learningRate * 
+                                                  nodes[i + 1][k].Error * 
+                                                  nodes[i + 1][k].Dvalue * 
+                                                  nodes[i][j].Value;
                     }
                 }
             }

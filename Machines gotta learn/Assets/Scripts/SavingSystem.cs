@@ -18,7 +18,7 @@ public class SavingSystem
 
         var list = new InputDataList
         {
-            data = inputDatas
+            Data = inputDatas
         };
 
         bf.Serialize(file, list);
@@ -35,7 +35,7 @@ public class SavingSystem
 
             file.Close();
 
-            inputDatas = list.data;
+            inputDatas = list.Data;
         }
         else if(!isStandard && File.Exists(Application.streamingAssetsPath + "/networkData.dat"))
         {
@@ -45,7 +45,7 @@ public class SavingSystem
 
             file.Close();
 
-            inputDatas = list.data;
+            inputDatas = list.Data;
         }
 
         return inputDatas;
