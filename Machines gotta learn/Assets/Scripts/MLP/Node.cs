@@ -1,15 +1,15 @@
 ﻿public class Node
 {
-    public float value;
-    public float[] weights;
-    public float error;
-    public float dvalue;
+    public float Value { get; set; }
+    public float[] Weights { get; set; }
+    public float Error { get; set; }
+    public float Dvalue { get; set; }
 
     public Node(float value, float[] weights, float error, float dvalue)
     {
-        this.value = value;
-        this.weights = weights;
-        this.error = error;
-        this.dvalue = dvalue;
+        Value = value;
+        Weights = weights;
+        Error = error;
+        Dvalue = dvalue;
     }
 }

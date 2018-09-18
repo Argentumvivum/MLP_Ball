@@ -102,8 +102,8 @@ public class GameManager : MonoBehaviour
 
         inputDatas.Add(new InputData
         {
-            data = data,
-            label = label
+            Data = data,
+            Label = label
         });
 
         savingSystem.SaveData(inputDatas);
@@ -172,8 +172,8 @@ public class GameManager : MonoBehaviour
     {
         if(nodes.Count > 0)
         {
-            rotationX.text = "X rot: " + nodes[nodes.Count - 1][0].value.ToString("0.##");
-            rotationZ.text = "Z rot: " + nodes[nodes.Count - 1][1].value.ToString("0.##");
+            rotationX.text = "X rot: " + nodes[nodes.Count - 1][0].Value.ToString("0.##");
+            rotationZ.text = "Z rot: " + nodes[nodes.Count - 1][1].Value.ToString("0.##");
         }
 
         if(inputDatas.Count > 0)
@@ -183,12 +183,12 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < inputDatas.Count; i++)
             {
                 tempScrollText += $" Data {i + 1} " +
-                                  $"Ball X: { inputDatas[i].data[0] } " +
-                                  $"Ball Z: { inputDatas[i].data[1] } " +
-                                  $"Goal X: { inputDatas[i].data[2] } " +
-                                  $"Goal Z: { inputDatas[i].data[3] } || " +
-                                  $"Rot X: { inputDatas[i].label[0].ToString("0.##") } " +
-                                  $"Rot Z: { inputDatas[i].label[1].ToString("0.##") }" +
+                                  $"Ball X: { inputDatas[i].Data[0] } " +
+                                  $"Ball Z: { inputDatas[i].Data[1] } " +
+                                  $"Goal X: { inputDatas[i].Data[2] } " +
+                                  $"Goal Z: { inputDatas[i].Data[3] } || " +
+                                  $"Rot X: { inputDatas[i].Label[0].ToString("0.##") } " +
+                                  $"Rot Z: { inputDatas[i].Label[1].ToString("0.##") }" +
                                   $"{ System.Environment.NewLine }";
             }
 
@@ -220,15 +220,15 @@ public class GameManager : MonoBehaviour
 
             currentData.Add(new InputData
             {
-                data = data,
-                label = label
+                Data = data,
+                Label = label
             });
 
             neuralNetwork.MLPSoftSign(nodes, currentData, isTraining, learningRate);
 
-            var target = Quaternion.Euler( x: nodes[nodes.Count -1][0].value * planeTiltMultiplier,
+            var target = Quaternion.Euler( x: nodes[nodes.Count -1][0].Value * planeTiltMultiplier,
                                            y: 0, 
-                                           z: nodes[nodes.Count - 1][1].value * planeTiltMultiplier );
+                                           z: nodes[nodes.Count - 1][1].Value * planeTiltMultiplier );
 
             plane.rotation = Quaternion.Slerp(plane.rotation, target, Time.deltaTime * 30.0f);
         }
